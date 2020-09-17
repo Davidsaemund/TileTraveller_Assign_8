@@ -24,14 +24,56 @@ def tile_traveller(location):
 
 #Function that gets current loc and wanted movement returns the resulting position
 
+def wanted_movement(location,movement) :
+    if location == 1.1 or location == 2.1:
+        if movement == 'n' or movement == 'N' :
+            return location + 0.1            
+    elif location == 1.2:
+        if movement == 'n' or movement == 'N' :
+            return location + 0.1
+        if movement == 's' or movement == 'S' :
+            return location - 0.1
+        if movement == 'e' or movement == 'E' :
+            return location + 1
+    elif location == 2.2 or location == 3.3:
+        if movement == 'w' or movement == 'W' :
+            return location - 1
+        if movement == 's' or movement == 'S' :
+            return location - 0.1
+    elif location == 1.3:
+        if movement == 's' or movement == 'S' :
+            return location - 0.1
+        if movement == 'e' or movement == 'E' :
+            return location + 1
+    elif location == 2.3:
+        if movement == 'e' or movement == 'E' :
+            return location + 1
+        if movement == 'w' or movement == 'W' :
+            return location - 1
+    elif location == 3.2:
+        if movement == 's' or movement == 'S' :
+            return location - 0.1
+        if movement == 'n' or movement == 'N' :
+            return location + 0.1    
+    elif location == 3.1:
+            print("Victory!")
+            return location
+    else:
+        print("Not a valid direction!")
+    return location
+
 
 
 # Main Program
 
-location = 1
+location = 1.1
 
-while location!= 9:
-    if 
+while location <= 3.1 :
+    location = tile_traveller(location)
+    movement_str = input("Direction: ")
+    location = wanted_movement(location, movement_str)
+
+
 
 # Starts in 1,1
 
