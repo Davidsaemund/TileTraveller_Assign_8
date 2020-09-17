@@ -5,74 +5,70 @@
 
 #Function that gets your current loc and tells you what options you have
 
-def tile_traveller(location):
-    if location == 1.1 or location == 2.1:
-        print("You can travel: (N)orth")
-    elif location == 1.2:
+def tile_traveller(x,y):
+    if (x == 1 and y == 1) or (x == 2 and y == 1):
+        print("You can travel: (N)orth.")
+    elif (x == 1 and y == 2 ) :
         print("You can travel: (N)orth or (E)ast or (S)outh.")
-    elif location == 2.2 or location == 3.3:
+    elif (x == 2 and y == 2) or (x == 3 and y == 3):
         print("You can travel: (S)outh or (W)est.")
-    elif location == 1.3:
-        print("You can travel: (S)outh or (E)ast.")
-    elif location == 2.3:
+    elif (x == 1 and y == 3 ) :
+        print("You can travel: (E)ast or (S)outh.")
+    elif (x == 2 and y == 3 ) :
         print("You can travel: (E)ast or (W)est.")
-    elif location == 3.2:
-        print("You can travel: (N)orth or (S)outh")
-    elif location == 3.1:
-        print("Victory!")
-    return location
+    elif (x == 3 and y == 2 ) :
+        print("You can travel: (N)orth or (S)outh.")
+    return x,y
 
 #Function that gets current loc and wanted movement returns the resulting position
 
-def wanted_movement(location,movement) :
-    if location == 1.1 or location == 2.1:
+def wanted_movement(x,y,movement) :
+    if (x == 1 and y == 1) or (x == 2 and y == 1):
         if movement == 'n' or movement == 'N' :
-            return location + 0.1            
-    elif location == 1.2:
+            y = y + 1
+            return x , y          
+    elif (x == 1 and y == 2 ) :
         if movement == 'n' or movement == 'N' :
-            return location + 0.1
+            return x , y + 1
         if movement == 's' or movement == 'S' :
-            return location - 0.1
+            return x , y - 1
         if movement == 'e' or movement == 'E' :
-            return location + 1
-    elif location == 2.2 or location == 3.3:
+            return x + 1 , y
+    elif (x == 2 and y == 2) or (x == 3 and y == 3):
         if movement == 'w' or movement == 'W' :
-            return location - 1
+            return x - 1 , y
         if movement == 's' or movement == 'S' :
-            return location - 0.1
-    elif location == 1.3:
+            return x , y - 1
+    elif (x == 1 and y == 3 ) :
         if movement == 's' or movement == 'S' :
-            return location - 0.1
+            return x , y - 1
         if movement == 'e' or movement == 'E' :
-            return location + 1
-    elif location == 2.3:
+            return x + 1 , y
+    elif (x == 2 and y == 3 ) :
         if movement == 'e' or movement == 'E' :
-            return location + 1
+            return x + 1 , y
         if movement == 'w' or movement == 'W' :
-            return location - 1
-    elif location == 3.2:
+            return x - 1 , y
+    elif (x == 3 and y == 2 ) :
         if movement == 's' or movement == 'S' :
-            return location - 0.1
+            return x , y - 1
         if movement == 'n' or movement == 'N' :
-            return location + 0.1    
-    elif location == 3.1:
-            print("Victory!")
-            return location
-    else:
-        print("Not a valid direction!")
-    return location
+            return x , y + 1       
+    print("Not a valid direction!")
+    return x,y
 
 
 
 # Main Program
+x = 1
+y = 1
 
-location = 1.1
-
-while location <= 3.1 :
-    location = tile_traveller(location)
+while x != 3 or  y != 1 :
+    x,y = tile_traveller(x,y)
     movement_str = input("Direction: ")
-    location = wanted_movement(location, movement_str)
+    x,y = wanted_movement(x,y, movement_str)
 
+print("Victory!")
 
 
 # Starts in 1,1
