@@ -4,6 +4,15 @@ EAST = 'e'
 SOUTH = 's'
 WEST = 'w'
 
+coins = 0
+
+def lever_fun(coins_input):
+    lever = input("Pull a lever (y/n): ")
+    if lever.upper() == "Y":
+        coins_input += 1
+        print("You received 1 coins, your total is now {}.".format(str(coins)))
+    return coins_input
+
 def move(direction, col, row):
     ''' Returns updated col, row given the direction '''
     if direction == NORTH:
@@ -49,10 +58,13 @@ def find_directions(col, row):
         valid_directions = NORTH
     elif col == 2 and row == 2: # (2,2)
         valid_directions = SOUTH+WEST
+        coins =lever_fun(coins)
     elif col == 2 and row == 3: # (2,3)
         valid_directions = EAST+WEST
+        coins = lever_fun(coins)
     elif col == 3 and row == 2: # (3,2)
         valid_directions = NORTH+SOUTH
+        coins = lever_fun(coins)
     elif col == 3 and row == 3: # (3,3)
         valid_directions = SOUTH+WEST
     return valid_directions
@@ -67,6 +79,7 @@ def play_one_move(col, row, valid_directions):
     if not direction in valid_directions:
         print("Not a valid direction!")
     else:
+        lever_fun(coins)
         col, row = move(direction, col, row)
         victory = is_victory(col, row)
     return victory, col, row
@@ -75,7 +88,8 @@ def play_one_move(col, row, valid_directions):
 victory = False
 row = 1
 col = 1
-
+lever = ""
+coins = 0
 while not victory:
     valid_directions = find_directions(col, row)
     print_directions(valid_directions)
