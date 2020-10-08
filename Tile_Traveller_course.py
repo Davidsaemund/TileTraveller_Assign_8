@@ -65,7 +65,7 @@ def find_directions(col, row):
         valid_directions = SOUTH+WEST
     return valid_directions
 
-def play_one_move(col, row, valid_directions, coins, lever):
+def play_one_move(col, row, valid_directions, coins):
     ''' Plays one move of the game
         Return if victory has been obtained and updated col,row '''
     victory = False
@@ -85,7 +85,7 @@ def play_one_move(col, row, valid_directions, coins, lever):
         elif row == 2 and col == 3 :
             coins = lever_fun(coins)
         victory = is_victory(col, row)
-    return victory, col, row, coins, lever
+    return victory, col, row, coins
 
 # The main program starts here
 victory = False
