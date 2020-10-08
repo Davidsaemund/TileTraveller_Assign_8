@@ -4,13 +4,12 @@ EAST = 'e'
 SOUTH = 's'
 WEST = 'w'
 
-coins = 0
 
 def lever_fun(coins_input):
-    lever = input("Pull a lever (y/n): ")
-    if lever.upper() == "Y":
+    lever_input = input("Pull a lever (y/n): ")
+    if lever_input.upper() == "Y":
         coins_input += 1
-        print("You received 1 coins, your total is now {}.".format(str(coins)))
+        print("You received 1 coin, your total is now {}.".format(str(coins_input)))
     return coins_input
 
 def move(direction, col, row):
@@ -57,19 +56,16 @@ def find_directions(col, row):
     elif col == 2 and row == 1: # (2,1)
         valid_directions = NORTH
     elif col == 2 and row == 2: # (2,2)
-        valid_directions = SOUTH+WEST
-        coins =lever_fun(coins)
+        valid_directions = SOUTH+WEST      
     elif col == 2 and row == 3: # (2,3)
-        valid_directions = EAST+WEST
-        coins = lever_fun(coins)
+        valid_directions = EAST+WEST     
     elif col == 3 and row == 2: # (3,2)
         valid_directions = NORTH+SOUTH
-        coins = lever_fun(coins)
     elif col == 3 and row == 3: # (3,3)
         valid_directions = SOUTH+WEST
     return valid_directions
 
-def play_one_move(col, row, valid_directions):
+def play_one_move(col, row, valid_directions, coins, lever):
     ''' Plays one move of the game
         Return if victory has been obtained and updated col,row '''
     victory = False
@@ -79,19 +75,25 @@ def play_one_move(col, row, valid_directions):
     if not direction in valid_directions:
         print("Not a valid direction!")
     else:
-        lever_fun(coins)
         col, row = move(direction, col, row)
+        if col == 1 and row == 2:
+            coins = lever_fun(coins)
+        elif col == 2 and row == 2:
+            coins = lever_fun(coins)
+        elif row == 3 and col == 2 :
+            coins = lever_fun(coins)
+        elif row == 2 and col == 3 :
+            coins = lever_fun(coins)
         victory = is_victory(col, row)
-    return victory, col, row
+    return victory, col, row, coins, lever
 
 # The main program starts here
 victory = False
 row = 1
 col = 1
-lever = ""
 coins = 0
 while not victory:
     valid_directions = find_directions(col, row)
     print_directions(valid_directions)
-    victory, col, row = play_one_move(col, row, valid_directions)
-print("Victory!")
+    victory, col, row, coins = play_one_move(col, row, valid_directions, coins)
+print("Victory! Total coins {}.".format(str(coins)))
