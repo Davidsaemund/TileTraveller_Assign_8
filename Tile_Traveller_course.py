@@ -1,3 +1,4 @@
+import random
 # Constants
 NORTH = 'n'
 EAST = 'e'
@@ -6,7 +7,7 @@ WEST = 'w'
 
 
 def lever_fun(coins_input):
-    lever_input = input("Pull a lever (y/n): ")
+    lever_input = random.choice(['y', 'n'])
     if lever_input.upper() == "Y":
         coins_input += 1
         print("You received 1 coin, your total is now {}.".format(str(coins_input)))
@@ -65,12 +66,15 @@ def find_directions(col, row):
         valid_directions = SOUTH+WEST
     return valid_directions
 
-def play_one_move(col, row, valid_directions, coins):
+def play_one_move(col, row, valid_directions, coins,moves):
     ''' Plays one move of the game
         Return if victory has been obtained and updated col,row '''
     victory = False
-    direction = input("Direction: ")
+    direction = random.choice([NORTH, EAST, SOUTH, WEST])
     direction = direction.lower()
+    moves += 1
+    print('Direction: {} '.format(direction))
+    
     
     if not direction in valid_directions:
         print("Not a valid direction!")
@@ -85,24 +89,31 @@ def play_one_move(col, row, valid_directions, coins):
         elif row == 2 and col == 3 :
             coins = lever_fun(coins)
         victory = is_victory(col, row)
-    return victory, col, row, coins
+    return victory, col, row, coins, moves
 
-def play(coins):
+def play(coins,moves):
     victory = False
     row = 1
     col = 1
+    seed = int(input('Input seed:'))
+    random.seed(seed)
     while not victory:
         valid_directions = find_directions(col, row)
         print_directions(valid_directions)
-        victory, col, row, coins = play_one_move(col, row, valid_directions, coins)
-    print("Victory! Total coins {}.".format(str(coins)))
+        victory, col, row, coins,moves = play_one_move(col, row, valid_directions, coins,moves)
+    print("Victory! Total coins {}. Moves {}.".format(str(coins),str(moves)))
+
+
+
+
     
 # Main programm
 
 main = True
 while main :
     coins = 0
-    play(coins)
+    moves = 0
+    play(coins,moves)
     answer = input("Play again (y/n): ")
     if answer.lower() == 'n':
         main = False
