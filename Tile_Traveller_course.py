@@ -1,5 +1,4 @@
 import random
-
 # Constants
 NORTH = 'n'
 EAST = 'e'
@@ -9,7 +8,8 @@ WEST = 'w'
 
 def lever_fun(coins_input):
     lever_input = random.choice(['y', 'n'])
-    print ('Pull a lever (y/n): {}'.format(lever_input))
+    print("Pull a lever (y/n): {}".format(lever_input))
+    
     if lever_input.upper() == "Y":
         coins_input += 1
         print("You received 1 coin, your total is now {}.".format(str(coins_input)))
@@ -76,6 +76,7 @@ def find_directions(col, row):
 def play_one_move(col, row, valid_directions, coins,moves):
     ''' Plays one move of the game
         Return if victory has been obtained and updated col,row '''
+
     victory = False
     direction = random.choice([NORTH, EAST, SOUTH, WEST])
     direction = direction.lower()
@@ -102,7 +103,6 @@ def play(coins,moves):
     victory = False
     row = 1
     col = 1
-
     seed = int(input('Input seed: '))
     random.seed(seed)
 
@@ -110,15 +110,13 @@ def play(coins,moves):
         valid_directions = find_directions(col, row)
         print_directions(valid_directions)
         victory, col, row, coins,moves = play_one_move(col, row, valid_directions, coins,moves)
-
     print("Victory! Total coins {}. Moves {}.".format(str(coins),str(moves)))
-
     
+
 # Main programm
-
 main = True
-while main :
 
+while main :
     coins = 0
     moves = 0
     play(coins,moves)
