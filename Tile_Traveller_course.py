@@ -126,4 +126,7 @@ while main :
 
     if answer.lower() == 'n':
         main = False
+
+# Linkur á Github hjá okkur
+# https://github.com/Davidsaemund/TileTraveller_Assign_8/commits/master
      
